@@ -1,3 +1,3 @@
 module.exports = {
-    mongoURI: 'mongodb://127.0.0.1:27017'
+    mongoURI: 'mongodb+srv://toan:toan@cluster0-y89he.mongodb.net/test?retryWrites=true'
 };
