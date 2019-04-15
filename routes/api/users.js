@@ -6,6 +6,9 @@ const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const passport = require('passport');
 
+// // Load Input Validation
+// const validateRegisterInput = require('../../validation/register');
+// const validateLoginInput = require('../../validation/login');
 
 // Load User model
 const User = require('../../models/User');
@@ -19,14 +22,19 @@ router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 // @desc    Register user
 // @access  Public
 router.post('/register', (req, res) => {
+  // const { errors, isValid } = validateRegisterInput(req.body);
 
+  // // Check Validation
+  // if (!isValid) {
+  //   return res.status(400).json(errors);
+  // }
 
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
-      errors.email = 'Email already exists';
-      return res.status(400).json(errors);
+      // errors.email = 'Email already exists';
+      // return res.status(400).json(errors);
+      res.status(404).json({ message: 'user exists' });
     } else {
-        console.log('processing');
       const avatar = gravatar.url(req.body.email, {
         s: '200', // Size
         r: 'pg', // Rating
@@ -51,25 +59,25 @@ router.post('/register', (req, res) => {
         });
       });
     }
-    })
-    .catch((error) => {
-        console.log(error);
-    });
+  });
 });
 
-// @route   GET api/users/login
+// @route   POST api/users/login
 // @desc    Login User / Returning JWT Token
 // @access  Public
 router.post('/login', (req, res) => {
-  const { errors, isValid } = validateLoginInput(req.body);
+  // const { errors, isValid } = validateLoginInput(req.body);
 
-  // Check Validation
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
+  // // Check Validation
+  // if (!isValid) {
+  //   return res.status(400).json(errors);
+  // }
 
   const email = req.body.email;
   const password = req.body.password;
+
+  console.log(email);
+  console.log(password);
 
   // Find user by email
   User.findOne({ email }).then(user => {
