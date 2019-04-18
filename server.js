@@ -8,8 +8,7 @@ const io = require('socket.io')(server);
 const jwt = require('jsonwebtoken');
 
 const users = require('./routes/api/users');
-const profile = require('./routes/api/profile');
-const posts = require('./routes/api/posts');
+const { saveMessage, getMessage }= require('./io/utils');
 
 
 // Body parser middleware
@@ -24,7 +23,7 @@ require('./config/passport')(passport);
 // Connect to MongoDB
 const db = require('./config/keys').mongoURI;
 mongoose
-  .connect(db)
+  .connect(db, { useNewUrlParser: true })
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
@@ -32,8 +31,6 @@ mongoose
 
 // Use Routes
 app.use('/api/users', users);
-app.use('/api/profile', profile);
-app.use('/api/posts', posts);
 
 
 // Socket.io connection
@@ -48,15 +45,19 @@ io.use((socket, next) => {
       next();
     });
   } else {
+    console.log('socket: fail to connect')
       next(new Error('Authentication error'));
   }    
 })
 .on('connection', (socket) => {
   console.log('socket.io is connected');
 
+  getMessage(socket);
+
   socket.on('message', (message) => {
+    saveMessage(io, message);
     console.log(message);
-      io.emit('message', message);
+      socket.emit('message', message);
   });
 });
 
