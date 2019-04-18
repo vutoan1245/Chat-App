@@ -5,6 +5,7 @@ import './App.css';
 
 import ChatContainer from './containers/ChatContainer/ChatContainer';
 import LoginContainer from './containers/LoginContainer/LoginContainer';
+import RegisterContainer from './containers/RegisterContainer/RegisterContainer';
 
 class App extends Component {
   render() {
@@ -13,6 +14,7 @@ class App extends Component {
         <div>
           <Switch>
             <Route path="/login" exact component={LoginContainer}/>
+            <Route path="/register" exact component={RegisterContainer}/>
             <Route path="/" component={ChatContainer}/>
           </Switch>
         </div>

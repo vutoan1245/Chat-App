@@ -31,6 +31,8 @@ class Register extends Component {
                 placeholder: 'Password:'
             }
         },
+        error: false,
+        errorMessage: ''
         
     }
 
@@ -43,8 +45,9 @@ class Register extends Component {
         this.setState ({
             inputElements: {
                 ...this.state.inputElements,
-                [e.target.name]: updatedElements
-            }
+                [e.target.name]: updatedElements,
+            },
+            error: false
         });
     }
 
@@ -75,7 +78,21 @@ class Register extends Component {
         return result;
     }
 
+    onKeyPress = e => {
+        if(e.key === 'Enter') {
+            this.onClick();
+        }
+    }
+
     onClick = () => {
+
+        if(!this.validateForm()){
+            this.setState({
+                ...this.state,
+                error: true,
+                errorMessage: 'invalid input'
+            })
+        }
         const firstName = this.state.inputElements.firstName.value;
         const lastName = this.state.inputElements.lastName.value;
         const email = this.state.inputElements.email.value;
@@ -90,8 +107,15 @@ class Register extends Component {
         axios.post("/api/users/register", body)
             .then(data => {
                 console.log(data);
+                this.props.push('/login');
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err);
+                this.setState({
+                    ...this.state,
+                    error: true
+                })
+            });
 
     }
 
@@ -113,19 +137,29 @@ class Register extends Component {
                         type={element.config.type}
                         name={element.config.name}
                         value={element.config.value} 
-                        onChange={e => this.onInputChange(e)} />
+                        onChange={e => this.onInputChange(e)}
+                        onKeyPress={e => this.onKeyPress(e)} />
                 </div>
                 
             );
         });
 
+        let errorElement = null;
+        if(this.state.error){
+            errorElement = (
+                <div className='error-container'>
+                    <p>Invalid Input</p>
+                </div>
+            )
+        }
+
         return (
             <div className='service-form'>
                 <div className='service-form-group'>
-                    <h2>Add Service</h2>
+                    <h2>Register</h2>
                     {form}
                     <button className='service-submit' onClick={this.onClick}>Submit</button>
-
+                    {errorElement}
                 </div>
             </div>
         );

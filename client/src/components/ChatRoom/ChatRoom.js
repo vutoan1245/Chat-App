@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import './ChatRoom.css';
 
-const url = 'http://localhost:5000';
+// const url = 'http://localhost:5000';
 
 class ChatRoom extends Component {
     state = {
@@ -14,9 +15,8 @@ class ChatRoom extends Component {
     }
 
     componentDidMount = () => {
-        if(!this.props.isAuthenticated){
-            this.props.push('/login');
-        }
+        this.authenticatedUser();
+
         this.state.socket.on('conversation', conversation => {
             console.log(conversation);
             this.setState({
@@ -37,8 +37,22 @@ class ChatRoom extends Component {
         })
     }
 
+    authenticatedUser = () => {
+        const token = this.props.token;
+        axios.get('/api/users/current', {headers: {
+            Authorization: token
+        }})
+            .then((userData) => {
+                this.props.addUserData(userData.data)
+                this.props.push('/');
+            })
+            .catch(err => {
+                this.props.push('/login');
+            })
+    }
+
     componentWillMount = () => {
-        const socket = io.connect(url + '?token=' + this.props.token, () => {
+        const socket = io.connect('/?token=' + this.props.token, () => {
             console.log('success');
         });
 

@@ -22,7 +22,8 @@ class Login extends Component {
                 placeholder: 'Password:'
             }
         },
-        
+        error: false,
+        errorMessage: 'invalid information'
     }
 
     onInputChange = (e) => {
@@ -35,7 +36,8 @@ class Login extends Component {
             inputElements: {
                 ...this.state.inputElements,
                 [e.target.name]: updatedElements
-            }
+            },
+            error: false
         });
     }
 
@@ -66,7 +68,22 @@ class Login extends Component {
         return result;
     }
 
+    onKeyPress = e => {
+        if(e.key === 'Enter') {
+            this.onClick();
+        }
+    }
+
     onClick = () => {
+
+        if(!this.validateForm()){
+            this.setState({
+                ...this.state,
+                error: true,
+                errorMessage: 'invalid information'
+            })
+        }
+        
         const email = this.state.inputElements.email.value;
         const password = this.state.inputElements.password.value;
 
@@ -88,7 +105,13 @@ class Login extends Component {
                         this.props.push('/');
                     })
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err);
+                this.setState({
+                    ...this.state,
+                    error: true
+                })
+            });
 
     }
 
@@ -116,13 +139,22 @@ class Login extends Component {
             );
         });
 
+        let errorElement = null;
+        if(this.state.error){
+            errorElement = (
+                <div className='error-container'>
+                    <p>Invalid Information</p>
+                </div>
+            )
+        }
+
         return (
             <div className='service-form'>
                 <div className='service-form-group'>
-                    <h2>Add Service</h2>
+                    <h2>Login</h2>
                     {form}
                     <button className='service-submit' onClick={this.onClick}>Submit</button>
-
+                    {errorElement}
                 </div>
             </div>
         );
