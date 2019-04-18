@@ -6,7 +6,16 @@ import Register from '../../components/Register/Register';
 const LoginContainer = props => {
     return (
         <div>
-            <Header />
+            <Header>
+                <div>
+                    <button 
+                        className="service-button"
+                        onClick={() => props.history.push('/login')}>Login</button>
+                    <button 
+                        className="service-button"
+                        onClick={() => props.history.push('/register')}>Register</button>
+                </div>
+            </Header>
             <Register 
                 push={props.history.push} />
         </div>

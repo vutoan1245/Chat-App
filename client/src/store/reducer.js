@@ -15,10 +15,18 @@ const reducer = (state = initialState, action) => {
                 userData: action.payload
             }
         case actionTypes.ADD_TOKEN:
+        console.log('TOKEN', action.payload);
             return {
                 ...state,
                 token: action.payload,
                 isAuthenticated: true
+            }
+        case actionTypes.REMOVE_USER_DATA:
+            return {
+                ...state,
+                isAuthenticated: false,
+                token: null,
+                userData: {}
             }
         default: 
             return state;

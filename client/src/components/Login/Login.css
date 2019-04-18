@@ -97,3 +97,29 @@
 .error-container {
     color: red;
 }
+
+.service-button{
+    cursor: pointer;
+    width: 130px;
+    /* border: none; */
+    /* background: #3498DB; */
+    color: black;
+    /* margin: 0 0 5px; */
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 7px;
+    float: right;
+    margin: auto;
+    
+}
+
+/* .service-button:hover {
+    background: #2E86C1;
+    -webkit-transition: background 0.3s ease-in-out;
+    -moz-transition: background 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
+} */
+
+.service-button:active {
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}

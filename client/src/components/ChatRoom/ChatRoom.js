@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import './ChatRoom.css';
 
-// const url = 'http://localhost:5000';
+const url = 'http://localhost:5000';
 
 class ChatRoom extends Component {
     state = {
@@ -15,7 +15,7 @@ class ChatRoom extends Component {
     }
 
     componentDidMount = () => {
-        this.authenticatedUser();
+        // this.authenticatedUser();
 
         this.state.socket.on('conversation', conversation => {
             console.log(conversation);
@@ -50,7 +50,9 @@ class ChatRoom extends Component {
     }
 
     componentWillMount = () => {
-        const socket = io.connect('/?token=' + this.props.token, () => {
+        const socket = io.connect(url + {
+            query: 'token=' + this.props.token
+        }, () => {
             console.log('success');
         });
 

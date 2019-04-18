@@ -121,9 +121,7 @@ class Register extends Component {
     }
 
     componentDidMount = () => {
-        if(this.authenticatedUser){
-            this.props.push('/');
-        }
+        this.authenticatedUser();
     }
 
     authenticatedUser = () => {
@@ -131,9 +129,8 @@ class Register extends Component {
         axios.get('/api/users/current', {headers: {
             Authorization: token
         }})
-            .then(() => console.log('user is authenticated'))
+            .then(() => this.props.push('/'))
             .catch(err => {
-                this.props.push('/login');
                 console.log(err);
             })
     }

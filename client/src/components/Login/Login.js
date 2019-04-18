@@ -27,9 +27,7 @@ class Login extends Component {
     }
 
     componentDidMount = () => {
-        if(this.authenticatedUser){
-            this.props.push('/');
-        }
+        this.authenticatedUser()
     }
 
     onInputChange = (e) => {
@@ -85,9 +83,8 @@ class Login extends Component {
         axios.get('/api/users/current', {headers: {
             Authorization: token
         }})
-            .then(() => console.log('user is authenticated'))
+            .then(() => this.props.push('/'))
             .catch(err => {
-                this.props.push('/login');
                 console.log(err);
             })
     }
@@ -112,15 +109,21 @@ class Login extends Component {
 
         axios.post("/api/users/login", body)
             .then(result => {
-                console.log(result.data);
+                // console.log(result.data);
                 const token = result.data.token;
+                console.log('token', token);
                 this.props.addToken(token.split(' ')[1]);
                 axios.get('/api/users/current', {headers: {
                     Authorization: token
                 }})
                     .then((userData) => {
+                        console.log(userData);
                         this.props.addUserData(userData.data)
                         this.props.push('/');
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        console.log('something went wrong')
                     })
             })
             .catch(err => {
