@@ -9,11 +9,11 @@ class Login extends Component {
 
     state = {
         inputElements: {
-            email: {
+            userName: {
                 value: '', 
                 type: 'text',
-                name: 'email',
-                placeholder: 'Email:'
+                name: 'userName',
+                placeholder: 'Username:'
             },
             password: { 
                 value: '', 
@@ -99,7 +99,7 @@ class Login extends Component {
             })
         }
         
-        const email = this.state.inputElements.email.value;
+        const email = this.state.inputElements.userName.value;
         const password = this.state.inputElements.password.value;
 
         const body = {
@@ -154,7 +154,8 @@ class Login extends Component {
                         type={element.config.type}
                         name={element.config.name}
                         value={element.config.value} 
-                        onChange={e => this.onInputChange(e)} />
+                        onChange={e => this.onInputChange(e)}
+                        onKeyPress={e => this.onKeyPress(e)} />
                 </div>
                 
             );

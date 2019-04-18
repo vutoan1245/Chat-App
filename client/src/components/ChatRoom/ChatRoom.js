@@ -5,7 +5,6 @@ import axios from 'axios';
 
 import './ChatRoom.css';
 
-const url = 'http://localhost:5000';
 
 class ChatRoom extends Component {
     state = {
@@ -15,17 +14,15 @@ class ChatRoom extends Component {
     }
 
     componentDidMount = () => {
-        // this.authenticatedUser();
+        this.authenticatedUser();
 
         this.state.socket.on('conversation', conversation => {
-            console.log(conversation);
             this.setState({
                 ...this.state,
                 conversation
             })
         })
         this.state.socket.on('message', message => {
-            console.log(message);
             if(message.name) {
                 const updateConversation = this.state.conversation;
                 updateConversation.unshift(message);
@@ -50,7 +47,7 @@ class ChatRoom extends Component {
     }
 
     componentWillMount = () => {
-        const socket = io.connect(url + '?token=' + this.props.token, () => {
+        const socket = io.connect('?token=' + this.props.token, () => {
             console.log('success');
         })
 
@@ -113,7 +110,7 @@ class ChatRoom extends Component {
                         <input 
                             type="text" 
                             className="post-input" 
-                            placeholder="Your Text..."
+                            placeholder="Enter..."
                             value={this.state.inputMessage}
                             onChange={e => this.onInputChange(e)}
                             onKeyPress={e => this.onKeyPress(e)} />

@@ -90,6 +90,9 @@
   .message-form {
     display: flex;
   }
+  .post-input {
+    font-size: 18px;
+  }
   
   .chat-footer input {
     background: #e5e5e5;

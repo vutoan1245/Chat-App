@@ -17,6 +17,7 @@
     padding-left: 15px;
     border-radius: 7px;
     height: 35px;
+    color: black;
 
 }
 
@@ -102,7 +103,7 @@
     cursor: pointer;
     width: 130px;
     /* border: none; */
-    /* background: #3498DB; */
+    background: #efefef;
     color: black;
     /* margin: 0 0 5px; */
     padding: 10px;

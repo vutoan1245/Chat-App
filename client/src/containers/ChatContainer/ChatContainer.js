@@ -9,12 +9,16 @@ import * as actionTypes from '../../store/action';
 
 const ChatContainer = props => {
 
+
     return (
         <div>
              <Header>           
                 <button 
                     className="logout-button"
-                    onClick={() => props.logout()}>Logout</button>
+                    onClick={() => {
+                        props.history.push('/login')
+                        props.logout()} 
+                    }>Logout</button>
             </Header>
            <div className="chat-container">
                 <ChatRoom
@@ -27,7 +31,7 @@ const ChatContainer = props => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    logout: dispatch({type:actionTypes.REMOVE_USER_DATA})
+    logout: () => dispatch({type:actionTypes.REMOVE_USER_DATA})
 })
 
 export default connect(null, mapDispatchToProps)(ChatContainer);

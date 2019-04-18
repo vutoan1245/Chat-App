@@ -19,17 +19,23 @@ class Register extends Component {
                 name: 'lastName',
                 placeholder: 'Last Name:'
             },
-            email: {
+            userName: {
                 value: '', 
                 type: 'text',
-                name: 'email',
-                placeholder: 'Email:'
+                name: 'userName',
+                placeholder: 'Username:'
             },
             password: { 
                 value: '', 
                 type: 'password',
                 name: 'password',
                 placeholder: 'Password:'
+            },
+            rePassword: { 
+                value: '', 
+                type: 'password',
+                name: 'rePassword',
+                placeholder: 'Confirm password:'
             }
         },
         error: false,
@@ -76,6 +82,10 @@ class Register extends Component {
             }
         })
 
+        if(this.state.inputElements.password.value !== this.state.inputElements.rePassword.value){
+            result = false;
+        }
+
         return result;
     }
 
@@ -104,6 +114,7 @@ class Register extends Component {
             email,
             password
         }
+        console.log(body);
 
         axios.post("/api/users/register", body)
             .then(data => {
