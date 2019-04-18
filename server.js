@@ -1,20 +1,16 @@
-const express = require('express');
+const app = require('express')();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
 const passport = require('passport');
-const server = require("http").createServer();
-const io = require("socket.io")(server);
+const server = require("http").createServer(app);
+const io = require('socket.io')(server);
 const jwt = require('jsonwebtoken');
 
 const users = require('./routes/api/users');
 const profile = require('./routes/api/profile');
 const posts = require('./routes/api/posts');
 
-
-// Set up express
-const app = express();
-// const expressServer = app.listen(port, () => console.log(`Server running on port ${port}`));
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -40,28 +36,10 @@ app.use('/api/profile', profile);
 app.use('/api/posts', posts);
 
 
-
-// Server static assets if in production
-if (process.env.NODE_ENV === 'production') {
-  // Set static folder
-  app.use(express.static('client/build'));
-
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
-}
-
-const port = process.env.PORT || 5000;
-
-// connect server
-const expressServer = app.listen(port, () => console.log(`Server running on port ${port}`));
-server.listen(4000, () => console.log(`Socket.io running on port ${4000}`));
-
-
 // Socket.io connection
 io.use((socket, next) => {
   if (socket.handshake.query && socket.handshake.query.token){
-    jwt.verify(socket.handshake.query.token, 'SECRET', function(err, decoded) {
+    jwt.verify(socket.handshake.query.token, 'SECRET', (err, decoded) => {
       if(err) {
         console.log('invalid token');
         return next(new Error('Authentication error'));
@@ -74,11 +52,28 @@ io.use((socket, next) => {
   }    
 })
 .on('connection', (socket) => {
-  console.log('connected');
-    // Connection now authenticated to receive further events
+  console.log('socket.io is connected');
 
-    socket.on('message', function(message) {
-      console.log(message);
-        io.emit('message', message);
-    });
+  socket.on('message', (message) => {
+    console.log(message);
+      io.emit('message', message);
+  });
 });
+
+
+// Server static assets if in production
+if (process.env.NODE_ENV === 'production') {
+  // Set static folder
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
+
+// connect server
+const port = process.env.PORT || 5000;
+server.listen(port, () => console.log(`Server running on port ${port}`));
+
+
