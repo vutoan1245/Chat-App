@@ -74,7 +74,7 @@ if (process.env.NODE_ENV === 'production') {
 
 
 // connect server
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 80;
 server.listen(port, () => console.log(`Server running on port ${port}`));
 
 

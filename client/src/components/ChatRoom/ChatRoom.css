@@ -1,0 +1,116 @@
+
+.page {
+    position: fixed;
+    top: 60px;
+    width: calc(100%);
+    height: calc(100% - 60px);
+    flex: 5;
+    margin: 10px;
+}
+  
+  .chat-body {
+    height: calc(100% - 125px);
+    margin: 15px;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  
+  .chat-message {
+    padding: 20px 10px;
+    margin: 0;
+  }
+  
+
+  .chat-message .avatar {
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+    float: left;
+  }
+  
+  .chat-message-content {
+    line-height: 1.44;
+    overflow: hidden;
+    color: rgba(255, 255, 255, 0.4);
+    padding: 5px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    overflow: auto;
+  }
+  
+  .chat-message-author {
+    color: black;
+    font-weight: 700;
+    display: inline-block;
+    margin-right: 4px;
+  }
+  
+  
+  .chat-message-author:hover {
+    color: #35ecd3;
+  }
+  
+  .chat-message .chat-message-message {
+    color: black
+  }
+  
+  .avatar {
+    position: relative;
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+    z-index: 2;
+  }
+  
+  .avatar img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* -webkit-transform: translateY(-50%) translateX(-50%); */
+    transform: translateY(-50%) translateX(-50%);
+    /* -o-object-fit: cover; */
+    /* object-fit: cover; */
+    max-width: 100%;
+    min-height: 100%;
+    height: 40px;
+    min-width: 100%;
+    border-radius: 100%;
+    border: 2px solid black;
+  }
+  
+  /* .avatar .little_avatar {
+    height: 20px;
+  } */
+  
+  .chat-footer {
+    padding: 10px;
+    background-color: #b7b7b7;
+  }
+
+  .message-form {
+    display: flex;
+  }
+  
+  .chat-footer input {
+    background: #e5e5e5;
+    border: 0;
+    height: 50px;
+    border-radius: 6px;
+    flex: 1;
+    padding: 0px 20px;
+    margin-right: 10px;
+    size: 20px;
+  }
+  
+  .chat-footer input:focus {
+    background: #cecece
+  }
+  
+  
+  .post-button {
+    border-radius: 10%;
+    height: 30px;
+    display: flex;
+    margin: auto;
+    margin-right: 10px;
+  }
