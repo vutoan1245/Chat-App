@@ -25,7 +25,7 @@ utils.saveMessage =  (socket, data) => {
 
 
 utils.getMessage = socket => {
-    Message.find({}).limit(30)
+    Message.find().sort({$natural:-1}).limit(30)
         .then(result => {
             socket.emit('conversation', result);
         })
