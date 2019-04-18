@@ -50,11 +50,9 @@ class ChatRoom extends Component {
     }
 
     componentWillMount = () => {
-        const socket = io.connect(url + {
-            query: 'token=' + this.props.token
-        }, () => {
+        const socket = io.connect(url + '?token=' + this.props.token, () => {
             console.log('success');
-        });
+        })
 
         this.setState({
             ...this.state,
