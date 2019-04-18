@@ -26,6 +26,12 @@ class Login extends Component {
         errorMessage: 'invalid information'
     }
 
+    componentDidMount = () => {
+        if(this.authenticatedUser){
+            this.props.push('/');
+        }
+    }
+
     onInputChange = (e) => {
         let updatedElements = {
             ...this.state.inputElements[e.target.name],
@@ -72,6 +78,18 @@ class Login extends Component {
         if(e.key === 'Enter') {
             this.onClick();
         }
+    }
+
+    authenticatedUser = () => {
+        const token = 'Bearer ' + this.props.token;
+        axios.get('/api/users/current', {headers: {
+            Authorization: token
+        }})
+            .then(() => console.log('user is authenticated'))
+            .catch(err => {
+                this.props.push('/login');
+                console.log(err);
+            })
     }
 
     onClick = () => {
@@ -161,9 +179,13 @@ class Login extends Component {
     };
 }
 
+const mapStateToProps = state => ({
+    token: state.token,
+})
+
 const dispatchToProps = dispatch => ({
     addUserData: (userData) => dispatch({type: actionTypes.ADD_USER_DATA, payload: userData}),
     addToken: (token) => dispatch({type: actionTypes.ADD_TOKEN, payload: token})
 })
 
-export default connect(null, dispatchToProps)(Login);
+export default connect(mapStateToProps, dispatchToProps)(Login);

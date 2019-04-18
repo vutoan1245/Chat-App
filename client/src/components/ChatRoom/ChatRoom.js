@@ -38,16 +38,14 @@ class ChatRoom extends Component {
     }
 
     authenticatedUser = () => {
-        const token = this.props.token;
+        const token = 'Bearer ' + this.props.token;
         axios.get('/api/users/current', {headers: {
             Authorization: token
         }})
-            .then((userData) => {
-                this.props.addUserData(userData.data)
-                this.props.push('/');
-            })
+            .then(() => console.log('user is authenticated'))
             .catch(err => {
                 this.props.push('/login');
+                console.log(err);
             })
     }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 
 class Register extends Component {
@@ -119,6 +120,24 @@ class Register extends Component {
 
     }
 
+    componentDidMount = () => {
+        if(this.authenticatedUser){
+            this.props.push('/');
+        }
+    }
+
+    authenticatedUser = () => {
+        const token = 'Bearer ' + this.props.token;
+        axios.get('/api/users/current', {headers: {
+            Authorization: token
+        }})
+            .then(() => console.log('user is authenticated'))
+            .catch(err => {
+                this.props.push('/login');
+                console.log(err);
+            })
+    }
+
     render() {
         const formElementsArray = [];
         for( let key in this.state.inputElements ) {
@@ -166,4 +185,8 @@ class Register extends Component {
     };
 }
 
-export default Register;
+const mapStateToProps = state => ({
+    token: state.token,
+})
+
+export default connect(mapStateToProps)(Register);
