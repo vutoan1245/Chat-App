@@ -46,7 +46,7 @@ io.use((socket, next) => {
       next();
     });
   } else {
-    console.log('socket: fail to connect')
+      console.log('socket: fail to connect')
       next(new Error('Authentication error'));
   }    
 })
