@@ -21,15 +21,7 @@
 
 }
 
-.service-form input:hover {
-  -webkit-transition: border-color 0.3s ease-in-out;
-  -moz-transition: border-color 0.3s ease-in-out;
-  transition: border-color 0.3s ease-in-out;
-  border: 1px solid #aaa;
-}
-
 .service-form input:focus {
-  outline: 0;
   border: 1px solid rgb(58, 56, 56);
 }
 
@@ -40,11 +32,9 @@
     background-color: #ffffff;
 
     font: 400 15px/16px "Roboto", Helvetica, Arial, sans-serif;
-
     border: 1px solid #ccc;
     background: #f8f8f9;
-    /* margin-bottom: 10px;
-    padding: 10px; */
+
     border-radius: 7px;
 }
 
@@ -84,16 +74,6 @@
     border-radius: 7px;
 }
 
-.service-submit:hover {
-    background: #2E86C1;
-    -webkit-transition: background 0.3s ease-in-out;
-    -moz-transition: background 0.3s ease-in-out;
-    transition: background-color 0.3s ease-in-out;
-}
-
-.service-submit:active {
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
-}
 
 .error-container {
     color: red;
@@ -102,10 +82,8 @@
 .service-button{
     cursor: pointer;
     width: 130px;
-    /* border: none; */
     background: #efefef;
     color: black;
-    /* margin: 0 0 5px; */
     padding: 10px;
     font-size: 15px;
     border-radius: 7px;
@@ -114,13 +92,6 @@
     
 }
 
-/* .service-button:hover {
-    background: #2E86C1;
-    -webkit-transition: background 0.3s ease-in-out;
-    -moz-transition: background 0.3s ease-in-out;
-    transition: background-color 0.3s ease-in-out;
-} */
-
-.service-button:active {
+/* .service-button:active {
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
-}
+} */

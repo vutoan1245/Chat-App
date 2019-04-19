@@ -31,9 +31,7 @@ class Login extends Component {
     }
 
     onInputChange = (e) => {
-        let updatedElements = {
-            ...this.state.inputElements[e.target.name],
-        };
+        let updatedElements = this.state.inputElements[e.target.name];
         updatedElements.value = e.target.value;
 
         this.setState ({

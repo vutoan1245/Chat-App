@@ -1,14 +1,6 @@
 .header-container{
 	font:13px Arial, Helvetica, sans-serif;
 	width: 100%;
-}
-.header-container h1{
-	float: left;
-	font: normal 28px Arial, Helvetica, sans-serif;
-	line-height: 40px;
-	margin: 0;
-}
-.header-container{
 	background-color:#2A5E80;
 	/* box-shadow:0 1px 1px #ccc; */
 	padding: 20px 40px;
@@ -16,16 +8,18 @@
 	color: #ffffff;
 	box-sizing: border-box;
 }
+.header-container h1{
+	float: left;
+	font: normal 28px Arial, Helvetica, sans-serif;
+	line-height: 40px;
+	margin: 0;
+}
 .header-container a {
 	color: #ffffff;
 	text-decoration: none;
 }
 .header-container a:hover {
 	color: #e5e5e5;
-	text-decoration: none;
-}
-.header-container a:active {
-	color: #cccccc;
 	text-decoration: none;
 }
 .header-container button.logout-button {
