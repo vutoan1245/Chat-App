@@ -60,25 +60,12 @@ class Register extends Component {
 
         let result = true;
 
-        const formElementsArray = [];
         for( let key in this.state.inputElements ) {
-            formElementsArray.push(
-                this.state.inputElements[key]
-            );
+            if(this.state.inputElements[key].value === ''){
+                result = false;
+            }
         }
 
-        formElementsArray.forEach(element => {
-            if (element.value === '') {
-                result = false;
-                let updateElement = element;
-                this.setState({
-                    inputElements: {
-                        ...this.state.inputElements,
-                        [element.name]: updateElement
-                    }
-                })
-            }
-        })
 
         if(this.state.inputElements.password.value !== this.state.inputElements.rePassword.value){
             result = false;
@@ -99,12 +86,11 @@ class Register extends Component {
             this.setState({
                 ...this.state,
                 error: true,
-                errorMessage: 'invalid input'
             })
         }
         const firstName = this.state.inputElements.firstName.value;
         const lastName = this.state.inputElements.lastName.value;
-        const email = this.state.inputElements.email.value;
+        const email = this.state.inputElements.userName.value;
         const password = this.state.inputElements.password.value;
 
         const body = {

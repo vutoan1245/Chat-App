@@ -23,7 +23,6 @@ class Login extends Component {
             }
         },
         error: false,
-        errorMessage: 'invalid information'
     }
 
     componentDidMount = () => {
@@ -35,6 +34,7 @@ class Login extends Component {
         updatedElements.value = e.target.value;
 
         this.setState ({
+            ...this.state,
             inputElements: {
                 ...this.state.inputElements,
                 [e.target.name]: updatedElements
@@ -49,23 +49,10 @@ class Login extends Component {
 
         const formElementsArray = [];
         for( let key in this.state.inputElements ) {
-            formElementsArray.push(
-                this.state.inputElements[key]
-            );
-        }
-
-        formElementsArray.forEach(element => {
-            if (element.value === '') {
+            if(this.state.inputElements[key].value === ''){
                 result = false;
-                let updateElement = element;
-                this.setState({
-                    inputElements: {
-                        ...this.state.inputElements,
-                        [element.name]: updateElement
-                    }
-                })
             }
-        })
+        }
 
         return result;
     }
@@ -93,7 +80,6 @@ class Login extends Component {
             this.setState({
                 ...this.state,
                 error: true,
-                errorMessage: 'invalid information'
             })
         }
         
@@ -121,6 +107,10 @@ class Login extends Component {
                     })
                     .catch(err => {
                         console.log(err);
+                        this.setState({
+                            ...this.state,
+                            error: true
+                        })
                         console.log('something went wrong')
                     })
             })
