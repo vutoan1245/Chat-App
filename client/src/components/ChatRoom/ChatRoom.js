@@ -93,7 +93,7 @@ class ChatRoom extends Component {
                         <div className="avatar"><img alt=""/></div>
                         <div className="chat-message-content">
                             <span className="chat-message-author">{data.name}</span>
-                            <p className="chat-message-message">{data.message}</p>
+                            <div className="chat-message-message">{data.message}</div>
                         </div>
                     </div>
                 )
