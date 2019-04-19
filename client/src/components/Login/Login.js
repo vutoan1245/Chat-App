@@ -47,7 +47,6 @@ class Login extends Component {
 
         let result = true;
 
-        const formElementsArray = [];
         for( let key in this.state.inputElements ) {
             if(this.state.inputElements[key].value === ''){
                 result = false;
