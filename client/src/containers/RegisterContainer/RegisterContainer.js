@@ -1,22 +1,24 @@
-import React from 'react';
+import React from 'react'
 
-import Header from '../../components/Header/Header';
-import Register from '../../components/Register/Register';
+import Header from '../../components/Header/Header'
+import Register from '../../components/Register/Register'
 
 const LoginContainer = props => {
     return (
         <div>
             <Header>
                 <div>
-                    <button 
+                    <button
                         className="service-button"
-                        onClick={() => props.history.push('/login')}>Login</button>
+                        onClick={() => props.history.push('/login')}
+                    >
+                        Login
+                    </button>
                 </div>
             </Header>
-            <Register 
-                push={props.history.push} />
+            <Register push={props.history.push} />
         </div>
     )
 }
 
-export default LoginContainer;
+export default LoginContainer

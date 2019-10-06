@@ -1,184 +1,183 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { connect } from 'react-redux';
-
+import React, { Component } from 'react'
+import axios from 'axios'
+import { connect } from 'react-redux'
 
 class Register extends Component {
-
     state = {
         inputElements: {
             firstName: {
-                value: '', 
+                value: '',
                 type: 'text',
                 name: 'firstName',
-                placeholder: 'First Name:'
+                placeholder: 'First Name:',
             },
             lastName: {
-                value: '', 
+                value: '',
                 type: 'text',
                 name: 'lastName',
-                placeholder: 'Last Name:'
+                placeholder: 'Last Name:',
             },
             userName: {
-                value: '', 
+                value: '',
                 type: 'text',
                 name: 'userName',
-                placeholder: 'Username:'
+                placeholder: 'Username:',
             },
-            password: { 
-                value: '', 
+            password: {
+                value: '',
                 type: 'password',
                 name: 'password',
-                placeholder: 'Password:'
+                placeholder: 'Password:',
             },
-            rePassword: { 
-                value: '', 
+            rePassword: {
+                value: '',
                 type: 'password',
                 name: 'rePassword',
-                placeholder: 'Confirm password:'
-            }
+                placeholder: 'Confirm password:',
+            },
         },
         error: false,
-        errorMessage: ''
-        
+        errorMessage: '',
     }
 
-    onInputChange = (e) => {
-        let updatedElements = this.state.inputElements[e.target.name];
-        updatedElements.value = e.target.value;
+    onInputChange = e => {
+        let updatedElements = this.state.inputElements[e.target.name]
+        updatedElements.value = e.target.value
 
-        this.setState ({
+        this.setState({
             inputElements: {
                 ...this.state.inputElements,
                 [e.target.name]: updatedElements,
             },
-            error: false
-        });
+            error: false,
+        })
     }
 
     validateForm = () => {
+        let result = true
 
-        let result = true;
-
-        for( let key in this.state.inputElements ) {
-            if(this.state.inputElements[key].value === ''){
-                result = false;
+        for (let key in this.state.inputElements) {
+            if (this.state.inputElements[key].value === '') {
+                result = false
             }
         }
 
-
-        if(this.state.inputElements.password.value !== this.state.inputElements.rePassword.value){
-            result = false;
+        if (
+            this.state.inputElements.password.value !==
+            this.state.inputElements.rePassword.value
+        ) {
+            result = false
         }
 
-        return result;
+        return result
     }
 
     onKeyPress = e => {
-        if(e.key === 'Enter') {
-            this.onClick();
+        if (e.key === 'Enter') {
+            this.onClick()
         }
     }
 
     onClick = () => {
-
-        if(!this.validateForm()){
+        if (!this.validateForm()) {
             this.setState({
                 ...this.state,
                 error: true,
             })
         }
-        const firstName = this.state.inputElements.firstName.value;
-        const lastName = this.state.inputElements.lastName.value;
-        const email = this.state.inputElements.userName.value;
-        const password = this.state.inputElements.password.value;
+        const firstName = this.state.inputElements.firstName.value
+        const lastName = this.state.inputElements.lastName.value
+        const email = this.state.inputElements.userName.value
+        const password = this.state.inputElements.password.value
 
         const body = {
-            name: firstName + " " + lastName,
+            name: firstName + ' ' + lastName,
             email,
-            password
+            password,
         }
-        console.log(body);
 
-        axios.post("/api/users/register", body)
+        axios
+            .post('/api/users/register', body)
             .then(data => {
-                console.log(data);
-                this.props.push('/login');
+                this.props.push('/login')
             })
             .catch(err => {
-                console.log(err);
                 this.setState({
                     ...this.state,
-                    error: true
+                    error: true,
                 })
-            });
-
+            })
     }
 
     componentDidMount = () => {
-        this.authenticatedUser();
+        this.authenticatedUser()
     }
 
     authenticatedUser = () => {
-        const token = 'Bearer ' + this.props.token;
-        axios.get('/api/users/current', {headers: {
-            Authorization: token
-        }})
+        const token = 'Bearer ' + this.props.token
+        axios
+            .get('/api/users/current', {
+                headers: {
+                    Authorization: token,
+                },
+            })
             .then(() => this.props.push('/'))
             .catch(err => {
-                console.log(err);
+                console.log(err)
             })
     }
 
     render() {
-        const formElementsArray = [];
-        for( let key in this.state.inputElements ) {
+        const formElementsArray = []
+        for (let key in this.state.inputElements) {
             formElementsArray.push({
                 id: key,
-                config: this.state.inputElements[key]
-            });
+                config: this.state.inputElements[key],
+            })
         }
 
         const form = formElementsArray.map(element => {
-            return(
-                <div className='group-input' key={element.id}>
+            return (
+                <div className="group-input" key={element.id}>
                     <p>{element.config.placeholder}</p>
-                    <input 
+                    <input
                         key={element.id}
                         type={element.config.type}
                         name={element.config.name}
-                        value={element.config.value} 
+                        value={element.config.value}
                         onChange={e => this.onInputChange(e)}
-                        onKeyPress={e => this.onKeyPress(e)} />
+                        onKeyPress={e => this.onKeyPress(e)}
+                    />
                 </div>
-                
-            );
-        });
+            )
+        })
 
-        let errorElement = null;
-        if(this.state.error){
+        let errorElement = null
+        if (this.state.error) {
             errorElement = (
-                <div className='error-container'>
+                <div className="error-container">
                     <p>Invalid Input</p>
                 </div>
             )
         }
 
         return (
-            <div className='service-form'>
-                <div className='service-form-group'>
+            <div className="service-form">
+                <div className="service-form-group">
                     <h2>Register</h2>
                     {form}
-                    <button className='service-submit' onClick={this.onClick}>Submit</button>
+                    <button className="service-submit" onClick={this.onClick}>
+                        Submit
+                    </button>
                     {errorElement}
                 </div>
             </div>
-        );
-    };
+        )
+    }
 }
 
 const mapStateToProps = state => ({
     token: state.token,
 })
 
-export default connect(mapStateToProps)(Register);
+export default connect(mapStateToProps)(Register)

@@ -1,37 +1,37 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from 'react'
+import { connect } from 'react-redux'
 
-
-import './ChatContainer.css';
-import Header from '../../components/Header/Header';
-import ChatRoom from '../../components/ChatRoom/ChatRoom';
-import * as actionTypes from '../../store/action';
+import './ChatContainer.css'
+import Header from '../../components/Header/Header'
+import ChatRoom from '../../components/ChatRoom/ChatRoom'
+import * as actionTypes from '../../store/action'
 
 const ChatContainer = props => {
-
-
     return (
         <div>
-             <Header>           
-                <button 
+            <Header>
+                <button
                     className="logout-button"
                     onClick={() => {
                         props.history.push('/login')
-                        props.logout()} 
-                    }>Logout</button>
+                        props.logout()
+                    }}
+                >
+                    Logout
+                </button>
             </Header>
-           <div className="chat-container">
-                <ChatRoom
-                    push={props.history.push} />
-                {/* <SideBar /> */}
+            <div className="chat-container">
+                <ChatRoom push={props.history.push} />
             </div>
         </div>
-
     )
 }
 
 const mapDispatchToProps = dispatch => ({
-    logout: () => dispatch({type:actionTypes.REMOVE_USER_DATA})
+    logout: () => dispatch({ type: actionTypes.REMOVE_USER_DATA }),
 })
 
-export default connect(null, mapDispatchToProps)(ChatContainer);
+export default connect(
+    null,
+    mapDispatchToProps
+)(ChatContainer)

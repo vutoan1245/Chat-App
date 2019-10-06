@@ -1,99 +1,106 @@
-import React, { Component } from 'react';
-import io from 'socket.io-client';
-import { connect } from 'react-redux';
-import axios from 'axios';
+import React, { Component } from 'react'
+import io from 'socket.io-client'
+import { connect } from 'react-redux'
+import axios from 'axios'
 
-import './ChatRoom.css';
-
+import './ChatRoom.css'
 
 class ChatRoom extends Component {
     state = {
         inputMessage: '',
         socket: null,
-        conversation: []
+        conversation: [],
     }
 
     componentDidMount = () => {
-        this.authenticatedUser();
+        this.authenticatedUser()
 
         this.state.socket.on('conversation', conversation => {
             this.setState({
                 ...this.state,
-                conversation
+                conversation,
             })
         })
         this.state.socket.on('message', message => {
-            if(message.name) {
-                const updateConversation = this.state.conversation;
-                updateConversation.unshift(message);
+            if (message.name) {
+                const updateConversation = this.state.conversation
+                updateConversation.unshift(message)
                 this.setState({
                     ...this.state,
-                    conversation: updateConversation
+                    conversation: updateConversation,
                 })
             }
         })
     }
 
     authenticatedUser = () => {
-        const token = 'Bearer ' + this.props.token;
-        axios.get('/api/users/current', {headers: {
-            Authorization: token
-        }})
+        const token = 'Bearer ' + this.props.token
+        axios
+            .get('/api/users/current', {
+                headers: {
+                    Authorization: token,
+                },
+            })
             .then(() => console.log('user is authenticated'))
             .catch(err => {
-                this.props.push('/login');
-                console.log(err);
+                this.props.push('/login')
+                console.log(err)
             })
     }
 
     componentWillMount = () => {
         const socket = io.connect('?token=' + this.props.token, () => {
-            console.log('success');
+            console.log('success')
         })
 
         this.setState({
             ...this.state,
-            socket
+            socket,
         })
     }
 
     onInputChange = e => {
         this.setState({
             ...this.state,
-            inputMessage: e.target.value
+            inputMessage: e.target.value,
         })
     }
 
     onKeyPress = e => {
-        if(e.key === 'Enter') {
-            this.onClick();
+        if (e.key === 'Enter') {
+            this.onClick()
         }
     }
 
     onClick = () => {
         this.state.socket.emit('message', {
             message: this.state.inputMessage,
-            userID: this.props.userData.id
+            userID: this.props.userData.id,
         })
 
         this.setState({
             ...this.state,
-            inputMessage: ''
+            inputMessage: '',
         })
     }
 
     render() {
+        let conversationElement = null
 
-        let conversationElement = null;
-
-        if(this.state.conversation){
+        if (this.state.conversation) {
             conversationElement = this.state.conversation.map((data, index) => {
                 return (
                     <div className="chat-message" key={index}>
-                        <div className="avatar"><img alt=""/></div>
+                        <div className="avatar">
+                            <img alt="" />
+                        </div>
                         <div className="chat-message-content">
-                            <span className="chat-message-author">{data.name}</span>
-                            <div className="chat-message-message">{data.message}</div>
+                            <span className="chat-message-author">
+                                {data.name}
+                            </span>
+                            <div className="chat-message-message">
+                                {data.message}
+                            </div>
                         </div>
                     </div>
                 )
@@ -107,27 +114,30 @@ class ChatRoom extends Component {
                 </div>
                 <div className="chat-footer relative">
                     <div className="message-form" action="">
-                        <input 
-                            type="text" 
-                            className="post-input" 
+                        <input
+                            type="text"
+                            className="post-input"
                             placeholder="Enter..."
                             value={this.state.inputMessage}
                             onChange={e => this.onInputChange(e)}
-                            onKeyPress={e => this.onKeyPress(e)} />
-                        <button
-                            className="post-button"
-                            onClick={this.onClick} >Submit</button>
+                            onKeyPress={e => this.onKeyPress(e)}
+                        />
+                        <button className="post-button" onClick={this.onClick}>
+                            Submit
+                        </button>
                     </div>
                 </div>
             </div>
         )
-        
     }
 }
 
 const mapStateToProps = state => ({
     token: state.token,
     userData: state.userData,
-    isAuthenticated: state.isAuthenticated
+    isAuthenticated: state.isAuthenticated,
 })
-export default connect(mapStateToProps, null)(ChatRoom);
+export default connect(
+    mapStateToProps,
+    null
+)(ChatRoom)

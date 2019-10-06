@@ -1,35 +1,35 @@
-.header-container{
-	font:13px Arial, Helvetica, sans-serif;
-	width: 100%;
-	background-color:#2A5E80;
-	/* box-shadow:0 1px 1px #ccc; */
-	padding: 20px 40px;
-	height: 80px;
-	color: #ffffff;
-	box-sizing: border-box;
+.header-container {
+    font: 13px Arial, Helvetica, sans-serif;
+    width: 100%;
+    background-color: #2a5e80;
+    /* box-shadow:0 1px 1px #ccc; */
+    padding: 20px 40px;
+    height: 80px;
+    color: #ffffff;
+    box-sizing: border-box;
 }
-.header-container h1{
-	float: left;
-	font: normal 28px Arial, Helvetica, sans-serif;
-	line-height: 40px;
-	margin: 0;
+.header-container h1 {
+    float: left;
+    font: normal 28px Arial, Helvetica, sans-serif;
+    line-height: 40px;
+    margin: 0;
 }
 .header-container a {
-	color: #ffffff;
-	text-decoration: none;
+    color: #ffffff;
+    text-decoration: none;
 }
 .header-container a:hover {
-	color: #e5e5e5;
-	text-decoration: none;
+    color: #e5e5e5;
+    text-decoration: none;
 }
 .header-container button.logout-button {
     font-size: 15px;
-	font-weight: bold;
-	float: right;
-	background-color: #2A5E80;
-	padding: 0 20px;
-	border: 1px solid #5E6367;
-	line-height: 40px;
+    font-weight: bold;
+    float: right;
+    background-color: #2a5e80;
+    padding: 0 20px;
+    border: 1px solid #5e6367;
+    line-height: 40px;
     border-radius: 7px;
     color: white;
 }
@@ -39,5 +39,5 @@
 }
 
 .header-container button.logout-button:active {
-	color: #cccccc;
+    color: #cccccc;
 }
