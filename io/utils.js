@@ -8,7 +8,6 @@ const utils = {}
 utils.saveMessage = (socket, data) => {
     User.findById(ObjectID(data.userID))
         .then(user => {
-            // console.log('[utils: saveMessage]', user);
             const message = new Message({
                 name: user.name,
                 message: data.message,

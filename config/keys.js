@@ -1,4 +1,4 @@
 module.exports = {
-    mongoURI: 'mongodb+srv://toan:toan@cluster0-y89he.mongodb.net/social-network?retryWrites=true',
-    secretOrKey: 'SECRET'
-};
+    mongoURI: 'your_mongo_URI_here',
+    secretOrKey: 'SECRET',
+}

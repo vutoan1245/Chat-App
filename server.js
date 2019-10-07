@@ -3,11 +3,11 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const path = require('path')
 const passport = require('passport')
-const server = require('http').createServer(app)
-const io = require('socket.io')(server)
 const jwt = require('jsonwebtoken')
 
 const app = express()
+const server = require('http').createServer(app)
+const io = require('socket.io')(server)
 
 const users = require('./routes/api/users')
 const { saveMessage, getMessage } = require('./io/utils')
